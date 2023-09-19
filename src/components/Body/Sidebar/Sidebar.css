@@ -1,0 +1,183 @@
+.sidebar {
+  max-width: 260px;
+  flex: 1;
+  margin-right: 60px;
+}
+
+.sidebar .sidebar-header {
+  min-height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.clear-filter {
+  align-items: center;
+  display: flex;
+  color: rgba(33, 36, 61, 0.7);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.clear-filter svg {
+  margin-right: 8px;
+}
+
+.clear-filter.disabled {
+  cursor: not-allowed;
+}
+
+.sidebar-body__header {
+  color: #21243d;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  border: none;
+  padding-bottom: 1rem;
+  font-size: 0.678rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.sidebar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #21243d;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+
+.sidebar-item.active .sidebar-item__label {
+  font-weight: 700;
+}
+
+.sidebar-item svg {
+  height: 8px;
+  width: 8px;
+  margin-right: 1rem;
+}
+
+.sidebar-item__count {
+  color: rgba(33, 36, 61, 0.8);
+  letter-spacing: 1.1px;
+  background-color: rgba(65, 66, 71, 0.08);
+  border-radius: 4px;
+  align-items: center;
+  margin-left: 8px;
+  padding: 0 4px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  display: block;
+}
+
+.sidebar .brand .search-form {
+  position: relative;
+  width: 100%;
+}
+
+.sidebar .brand .search-box-input {
+  display: block;
+  background-color: rgba(65, 66, 71, 0.06);
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  font-family: Hind, sans-serif;
+  color: rgba(33, 36, 61, 0.8);
+  min-height: 40px;
+  border-radius: 3px;
+  padding: 0 44px;
+  font-size: 0.8rem;
+}
+
+.ais-RefinementList-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  height: 1rem;
+  width: 1rem;
+  background-color: rgba(65, 66, 71, 0.08);
+  border: none;
+  border-radius: 2px;
+  margin: 0 1rem 0 0;
+  position: relative;
+}
+
+.sidebar-item--selected .ais-RefinementList-checkbox::after {
+  content: "";
+  height: 4px;
+  width: 4px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2px, -2px);
+}
+
+.sidebar-item--selected .ais-RefinementList-checkbox {
+  background-color: #e2a400;
+}
+
+.sidebar-item__title {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.brand .sidebar-list {
+  margin-top: 16px;
+}
+
+.price .sidebar-body__header {
+  padding-bottom: 2.4rem;
+}
+
+.toggle-label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.toggle-label__btn {
+  display: flex;
+  align-items: center;
+  color: rgba(33, 36, 61, 0.32);
+  font-size: 0.8rem;
+}
+
+.toggle-label__btn-text {
+  margin-right: 12px;
+}
+
+.rating .sidebar-item {
+  align-items: center;
+}
+
+.rating-icon {
+  color: #e2a400;
+  font-size: 1.6rem;
+  opacity: 0.5;
+}
+
+.rating-icon.active {
+  opacity: 1;
+}
+
+.rating-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.rating-icon.disable {
+  color: rgba(0, 0, 0, 0.08);
+}

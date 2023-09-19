@@ -1,0 +1,30 @@
+.slider-rail {
+  cursor: pointer;
+  height: 3px;
+  width: 100%;
+  background-color: rgba(65, 66, 71, 0.08);
+  border-radius: 3px;
+  position: absolute;
+}
+
+.sliderTrack {
+  cursor: pointer;
+  height: 3px;
+  background-color: #e2a400;
+  border-radius: 3px;
+  position: absolute;
+}
+
+.slider-handle {
+  cursor: grab;
+  height: 16px;
+  width: 16px;
+  z-index: 1;
+  background-image: linear-gradient(#fff, #f5f5fa);
+  border-radius: 50%;
+  outline: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 11px rgba(37, 44, 97, 0.15),
+    0 2px 3px rgba(93, 100, 148, 0.2);
+}
