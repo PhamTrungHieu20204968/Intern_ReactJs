@@ -12,6 +12,7 @@ function Sidebar() {
     brandList,
     selectedCategory,
     selectedBrands,
+    rate,
   } = store.getState();
 
   const handleSelectCategory = (id) => {
@@ -41,11 +42,38 @@ function Sidebar() {
       });
     }
   };
+
+  const handleChangePrice = (value) => {
+    store.dispatch({
+      type: "Filter by price",
+      payload: value,
+    });
+  };
+
+  const handleSelectRate = (selectRate) => {
+    if (selectRate !== rate) {
+      store.dispatch({
+        type: "Filter by rate",
+        payload: selectRate,
+      });
+    } else {
+      store.dispatch({
+        type: "Filter by rate",
+        payload: 0,
+      });
+    }
+  };
+
+  const handleClearFilter = () => {
+    store.dispatch({
+      type: "Clear filter",
+    });
+  };
   return (
     <section className="sidebar">
       <div className="sidebar-header">
         <h2>Filters</h2>
-        <div className="clear-filter">
+        <div className="clear-filter" onClick={handleClearFilter}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="11"
@@ -180,6 +208,7 @@ function Sidebar() {
                 open: true,
               }}
               trackStyle={styles.sliderTrack}
+              onChange={(value) => handleChangePrice(value)}
             />
           </div>
         </div>
@@ -203,29 +232,47 @@ function Sidebar() {
           <div className="sidebar-body__header">ratings</div>
           <div className="sidebar-body__content">
             <ul className="sidebar-list">
-              <li className="sidebar-item">
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
+              <li className="sidebar-item" onClick={() => handleSelectRate(4)}>
+                <StarFilled
+                  className={rate === 4 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 4 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 4 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 4 ? "rating-icon active" : "rating-icon"}
+                />
                 <StarFilled className="rating-icon disable" />
                 <span className="sidebar-item__count">
                   {filtedList.filter((product) => product.rate >= 4).length}
                 </span>
               </li>
-              <li className="sidebar-item">
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
+              <li className="sidebar-item" onClick={() => handleSelectRate(3)}>
+                <StarFilled
+                  className={rate === 3 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 3 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 3 ? "rating-icon active" : "rating-icon"}
+                />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
                 <span className="sidebar-item__count">
                   {filtedList.filter((product) => product.rate === 3).length}
                 </span>
               </li>
-              <li className="sidebar-item">
-                <StarFilled className="rating-icon" />
-                <StarFilled className="rating-icon" />
+              <li className="sidebar-item" onClick={() => handleSelectRate(2)}>
+                <StarFilled
+                  className={rate === 2 ? "rating-icon active" : "rating-icon"}
+                />
+                <StarFilled
+                  className={rate === 2 ? "rating-icon active" : "rating-icon"}
+                />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
@@ -233,8 +280,10 @@ function Sidebar() {
                   {filtedList.filter((product) => product.rate === 2).length}
                 </span>
               </li>
-              <li className="sidebar-item">
-                <StarFilled className="rating-icon" />
+              <li className="sidebar-item" onClick={() => handleSelectRate(1)}>
+                <StarFilled
+                  className={rate === 1 ? "rating-icon active" : "rating-icon"}
+                />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />

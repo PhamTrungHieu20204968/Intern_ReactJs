@@ -7,6 +7,28 @@ import { store } from "../../Redux/store";
 
 function Body() {
   const { filtedList, pageSize } = store.getState();
+
+  const handleOrderChange = (value) => {
+    store.dispatch({
+      type: "Filter by order",
+      payload: value,
+    });
+  };
+
+  const handleCHangePageSize = (value) => {
+    store.dispatch({
+      type: "Pagination",
+      payload: value,
+    });
+  };
+  
+  const handleChangePage = (value) => {
+    store.dispatch({
+      type: "Change page",
+      payload: value,
+    });
+  };
+
   return (
     <main className="grid wide">
       <div className="row no-gutters">
@@ -23,18 +45,19 @@ function Body() {
                 }}
                 options={[
                   {
-                    value: "default",
+                    value: 0,
                     label: "Sort by featured",
                   },
                   {
-                    value: "ascending",
+                    value: 1,
                     label: "Price ascending",
                   },
                   {
-                    value: "descending",
+                    value: 2,
                     label: "Price descending",
                   },
                 ]}
+                onChange={(value) => handleOrderChange(value)}
               />
               <Select
                 defaultValue="8"
@@ -43,14 +66,15 @@ function Body() {
                 }}
                 options={[
                   {
-                    value: "8",
+                    value: 8,
                     label: "8 hits per page",
                   },
                   {
-                    value: "16",
+                    value: 16,
                     label: "16 hits per page",
                   },
                 ]}
+                onChange={(value) => handleCHangePageSize(value)}
               />
             </header>
 
@@ -63,6 +87,7 @@ function Body() {
                 defaultCurrent={1}
                 total={filtedList.length}
                 pageSize={pageSize}
+                onChange={(value) => handleChangePage(value)}
               />
             </div>
           </section>
