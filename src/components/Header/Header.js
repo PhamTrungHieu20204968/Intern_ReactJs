@@ -1,6 +1,14 @@
+import { store } from "../../Redux/store";
 import "./Header.css";
 
 function Header() {
+  const { headerInputSearch } = store.getState();
+  const handleSearch = (e) => {
+    store.dispatch({
+      type: "Header search",
+      payload: e.target.value,
+    });
+  };
   return (
     <header className="header">
       <p className="header-logo">
@@ -21,6 +29,8 @@ function Header() {
             type="text"
             className="search-box-input"
             placeholder="Product, brand, color, …"
+            onChange={(e) => handleSearch(e)}
+            value={headerInputSearch}
           />
           <button className="search-box-button">
             <svg

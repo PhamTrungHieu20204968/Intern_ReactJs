@@ -3,8 +3,10 @@ import { Select, Pagination } from "antd";
 import "./Body.css";
 import Sidebar from "./Sidebar/Sidebar";
 import ListProduct from "./ListProduct/ListProduct";
+import { store } from "../../Redux/store";
 
 function Body() {
+  const { filtedList, pageSize } = store.getState();
   return (
     <main className="grid wide">
       <div className="row no-gutters">
@@ -57,7 +59,11 @@ function Body() {
             </div>
 
             <div className="pagination">
-              <Pagination defaultCurrent={1} total={20} pageSize={8} />
+              <Pagination
+                defaultCurrent={1}
+                total={filtedList.length}
+                pageSize={pageSize}
+              />
             </div>
           </section>
         </div>

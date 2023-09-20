@@ -1,10 +1,46 @@
 import { Slider, Switch } from "antd";
-import { StarFilled, StarOutlined } from "@ant-design/icons";
+import { StarFilled } from "@ant-design/icons";
 
 import "./Sidebar.css";
 import styles from "./library.css";
+import { store } from "../../../Redux/store";
 
 function Sidebar() {
+  const {
+    categoryList,
+    filtedList,
+    brandList,
+    selectedCategory,
+    selectedBrands,
+  } = store.getState();
+
+  const handleSelectCategory = (id) => {
+    if (id !== selectedCategory) {
+      store.dispatch({
+        type: "Filter by category",
+        payload: id,
+      });
+    } else {
+      store.dispatch({
+        type: "Filter by category",
+        payload: 0,
+      });
+    }
+  };
+
+  const handleSelectBrand = (id) => {
+    if (selectedBrands.indexOf(id) === -1) {
+      store.dispatch({
+        type: "Filter by brand",
+        payload: [...selectedBrands, id],
+      });
+    } else {
+      store.dispatch({
+        type: "Filter by brand",
+        payload: selectedBrands.slice(selectedBrands.indexOf(id), 1),
+      });
+    }
+  };
   return (
     <section className="sidebar">
       <div className="sidebar-header">
@@ -33,30 +69,42 @@ function Sidebar() {
           <div className="sidebar-body__header">category</div>
           <div className="sidebar-body__content">
             <ul className="sidebar-list">
-              <li className="sidebar-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="8"
-                  height="8"
-                  viewBox="0 0 8 8"
-                >
-                  <path fill="%2390919E" fillRule="nonzero" d="M0 4l4-4 4 4z" />
-                </svg>
-                <span className="sidebar-item__label">Appliances</span>
-                <span className="sidebar-item__count">4306</span>
-              </li>
-              <li className="sidebar-item active">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="8"
-                  height="8"
-                  viewBox="0 0 8 8"
-                >
-                  <path fill="%2390919E" fillRule="nonzero" d="M0 4l4-4 4 4z" />
-                </svg>
-                <span className="sidebar-item__label">Appliances</span>
-                <span className="sidebar-item__count">4306</span>
-              </li>
+              {categoryList &&
+                categoryList.map((category) => {
+                  const count = filtedList.filter(
+                    (product) => product.categoryId === category.id
+                  ).length;
+                  return (
+                    count > 0 && (
+                      <li
+                        key={category.id}
+                        className={
+                          selectedCategory == category.id
+                            ? "sidebar-item active"
+                            : "sidebar-item"
+                        }
+                        onClick={() => handleSelectCategory(category.id)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="8"
+                          height="8"
+                          viewBox="0 0 8 8"
+                        >
+                          <path
+                            fill="%2390919E"
+                            fillRule="nonzero"
+                            d="M0 4l4-4 4 4z"
+                          />
+                        </svg>
+                        <span className="sidebar-item__label">
+                          {category.name}
+                        </span>
+                        <span className="sidebar-item__count">{count}</span>
+                      </li>
+                    )
+                  );
+                })}
             </ul>
           </div>
         </div>
@@ -85,17 +133,36 @@ function Sidebar() {
               </form>
 
               <ul className="sidebar-list">
-                <li className="sidebar-item sidebar-item--selected">
-                  <label className="sidebar-item__title">
-                    <input
-                      className="ais-RefinementList-checkbox"
-                      type="checkbox"
-                      value="Insignia™"
-                    />
-                    <span className="sidebar-item__label">Insignia™</span>
-                    <span className="sidebar-item__count">746</span>
-                  </label>
-                </li>
+                {brandList &&
+                  brandList.map((brand) => {
+                    const count = filtedList.filter(
+                      (product) => product.brandId === brand.id
+                    ).length;
+                    return (
+                      count > 0 && (
+                        <li
+                          key={brand.id}
+                          className={
+                            selectedBrands.includes(brand.id)
+                              ? "sidebar-item sidebar-item--selected"
+                              : "sidebar-item"
+                          }
+                          onClick={() => handleSelectBrand(brand.id)}
+                        >
+                          <label className="sidebar-item__title">
+                            <input
+                              className="ais-RefinementList-checkbox"
+                              type="checkbox"
+                            />
+                            <span className="sidebar-item__label">
+                              {brand.name}
+                            </span>
+                            <span className="sidebar-item__count">{count}</span>
+                          </label>
+                        </li>
+                      )
+                    );
+                  })}
               </ul>
             </div>
           </div>
@@ -142,7 +209,9 @@ function Sidebar() {
                 <StarFilled className="rating-icon" />
                 <StarFilled className="rating-icon" />
                 <StarFilled className="rating-icon disable" />
-                <span className="sidebar-item__count">60</span>
+                <span className="sidebar-item__count">
+                  {filtedList.filter((product) => product.rate >= 4).length}
+                </span>
               </li>
               <li className="sidebar-item">
                 <StarFilled className="rating-icon" />
@@ -150,7 +219,9 @@ function Sidebar() {
                 <StarFilled className="rating-icon" />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
-                <span className="sidebar-item__count">60</span>
+                <span className="sidebar-item__count">
+                  {filtedList.filter((product) => product.rate === 3).length}
+                </span>
               </li>
               <li className="sidebar-item">
                 <StarFilled className="rating-icon" />
@@ -158,7 +229,9 @@ function Sidebar() {
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
-                <span className="sidebar-item__count">60</span>
+                <span className="sidebar-item__count">
+                  {filtedList.filter((product) => product.rate === 2).length}
+                </span>
               </li>
               <li className="sidebar-item">
                 <StarFilled className="rating-icon" />
@@ -166,7 +239,9 @@ function Sidebar() {
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
                 <StarFilled className="rating-icon disable" />
-                <span className="sidebar-item__count">60</span>
+                <span className="sidebar-item__count">
+                  {filtedList.filter((product) => product.rate === 1).length}
+                </span>
               </li>
             </ul>
           </div>
